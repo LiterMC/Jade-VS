@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    archivesName = "${project.name}-${minecraft_version}"
 }
 
 java {
@@ -15,6 +15,7 @@ java {
 
 repositories {
     mavenCentral()
+
     // https://docs.gradle.org/current/userguide/declaring_repositories.html#declaring_content_exclusively_found_in_one_repository
     exclusiveContent {
         forRepository {
@@ -25,6 +26,7 @@ repositories {
         }
         filter { includeGroupAndSubgroups('org.spongepowered') }
     }
+
     exclusiveContent {
         forRepositories(
                 maven {
@@ -38,9 +40,38 @@ repositories {
         )
         filter { includeGroup('org.parchmentmc.data') }
     }
+
     maven {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
+    }
+
+    maven {
+        name = 'Kotlin for Forge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge/'
+        content {
+            includeGroup('thedarkcolour')
+        }
+    }
+
+    maven {
+        name = 'Valkyrien Skies'
+        url = 'https://maven.valkyrienskies.org'
+        content {
+            includeGroup('org.valkyrienskies')
+            includeGroup('org.valkyrienskies.core')
+            includeGroup('com.github.Rubydesic')
+            includeGroup('me.shedaniel.cloth')
+            includeGroup('org.mapstruct')
+        }
+    }
+
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content {
+            includeGroup('maven.modrinth')
+        }
     }
 }
 
@@ -85,18 +116,17 @@ jar {
 processResources {
     var expandProps = [
             'version'                      : version,
-            'group'                        : project.group, //Else we target the task's group.
+            'group'                        : project.group, // Else we target the task's group.
             'minecraft_version'            : minecraft_version,
             'minecraft_version_range'      : minecraft_version_range,
-            'fabric_version'               : fabric_version,
             'fabric_loader_version'        : fabric_loader_version,
             'mod_name'                     : mod_name,
             'mod_author'                   : mod_author,
             'mod_id'                       : mod_id,
             'license'                      : license,
             'description'                  : project.description,
-            "forge_version": forge_version,
-            "forge_loader_version_range": forge_loader_version_range,
+            'forge_version'                : forge_version,
+            'forge_loader_version_range'   : forge_loader_version_range,
             'credits'                      : credits,
             'java_version'                 : java_version
     ]
