@@ -14,13 +14,13 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'maven-publish'
+apply plugin: 'com.modrinth.minotaur'
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
 
 mixin {
     add sourceSets.main, "${mod_id}.refmap.json"
 
-    config "${mod_id}.mixins.json"
     config "${mod_id}.forge.mixins.json"
 }
 
@@ -38,12 +38,12 @@ minecraft {
         client {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Client'
-            args "-mixin.config=${mod_id}.mixins.json", "-mixin.config=${mod_id}.forge.mixins.json"
+            taskName 'runClient'
+            args "-mixin.config=${mod_id}.forge.mixins.json"
             mods {
                 modClientRun {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -51,12 +51,12 @@ minecraft {
         server {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Server'
-            args "-mixin.config=${mod_id}.mixins.json", "-mixin.config=${mod_id}.forge.mixins.json"
+            taskName 'runServer'
+            args "-mixin.config=${mod_id}.forge.mixins.json"
             mods {
                 modServerRun {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -65,12 +65,12 @@ minecraft {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            taskName 'Data'
-            args "-mixin.config=${mod_id}.mixins.json", "-mixin.config=${mod_id}.forge.mixins.json"
+            taskName 'runData'
+            args "-mixin.config=${mod_id}.forge.mixins.json"
             mods {
                 modDataRun {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -81,22 +81,45 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compileOnly project(":Common")
+    compileOnly project(":common")
     annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
+
+    compileOnly "org.joml:joml:1.10.4"
+    compileOnly "org.joml:joml-primitives:1.10.0"
+    implementation "thedarkcolour:kotlinforforge:3.12.0"
+    implementation fg.deobf("org.valkyrienskies.core:api:${vs_core_version}")
+    implementation fg.deobf("org.valkyrienskies:valkyrienskies-118-forge:${vs2_version}")
+    implementation fg.deobf("maven.modrinth:jade:${jade_forge_version}")
 }
 
 tasks.withType(JavaCompile) {
-    source(project(":Common").sourceSets.main.allSource)
+    source(project(":common").sourceSets.main.allSource)
 }
 
 processResources {
-    from project(":Common").sourceSets.main.resources
+    from project(":common").sourceSets.main.resources
 
-    filesMatching('*.mixins.json') {
-        expand "refmap_target": "${mod_id}."
+    var expandProps = [
+        'version'                      : version,
+        'group'                        : project.group,
+        'minecraft_version'            : minecraft_version,
+        'minecraft_version_range'      : minecraft_version_range,
+        'fabric_loader_version'        : fabric_loader_version,
+        'mod_name'                     : mod_name,
+        'mod_author'                   : mod_author,
+        'mod_id'                       : mod_id,
+        'license'                      : license,
+        'description'                  : project.description,
+        'forge_version'                : forge_version,
+        'forge_loader_version_range'   : forge_loader_version_range,
+        'credits'                      : credits,
+        'java_version'                 : java_version,
+    ]
+
+    filesMatching(['META-INF/mods.toml', '*.mixins.json']) {
+        expand expandProps
     }
 }
-
 
 jar.finalizedBy('reobfJar')
 
@@ -113,5 +136,19 @@ publishing {
         maven {
             url "file://" + System.getenv("local_maven")
         }
+    }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "jade-vs"
+    versionNumber = "${minecraft_version}-forge-${version}"
+    versionType = "release"
+    uploadFile = jar
+    gameVersions = ["1.18.2"]
+    loaders = ["forge"]
+    dependencies {
+        required.project "jade"
+        required.project "valkyrien-skies"
     }
 }

@@ -1,40 +1,33 @@
 {
     "schemaVersion": 1,
-    "id": "modid",
+    "id": "${mod_id}",
     "version": "${version}",
-  
-    "name": "Example Mod",
-    "description": "This is an example description! Tell everyone what your mod is about!",
+    "name": "${mod_name}",
+    "description": "${description}",
     "authors": [
-      "Me!"
+        "${mod_author}"
     ],
     "contact": {
-      "homepage": "https://fabricmc.net/",
-      "sources": "https://github.com/FabricMC/fabric-example-mod"
+        "homepage": "https://github.com/LiterMC/Jade-VS",
+        "sources": "https://github.com/LiterMC/Jade-VS",
+        "issues": "https://github.com/LiterMC/Jade-VS/issues"
     },
-  
-    "license": "CC0-1.0",
-    "icon": "assets/modid/icon.png",
-  
+    "license": "${license}",
+    "icon": "assets/modid/${mod_id}.png",
     "environment": "*",
     "entrypoints": {
-      "main": [
-        "com.example.examplemod.ExampleMod"
-      ]
+        "main": [
+            "com.github.litermc.jadevs.JadeVSMod"
+        ]
     },
     "mixins": [
-      "multiloader.mixins.json",
-      "multiloader.fabric.mixins.json"
+        "${mod_id}.fabric.mixins.json"
     ],
-  
     "depends": {
-      "fabricloader": ">=0.12",
-      "fabric": "*",
-      "minecraft": "1.18.x",
-      "java": ">=17"
-    },
-    "suggests": {
-      "another-mod": "*"
+        "fabric": "*",
+        "minecraft": "${minecraft_version}",
+        "java": ">=17",
+        "jade": "*",
+        "valkyrienskies": "*"
     }
-  }
-  
+}

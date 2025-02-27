@@ -8,17 +8,6 @@ archivesBaseName = "${mod_name}-common-${minecraft_version}"
 
 minecraft {
     version(minecraft_version)
-    runs {   
-        if (project.hasProperty('common_runs_enabled') ? project.findProperty('common_runs_enabled').toBoolean() : true) {
-        
-            server(project.hasProperty('common_server_run_name') ? project.findProperty('common_server_run_name') : 'vanilla_server') {
-                workingDirectory(this.file("run"))
-            }
-            client(project.hasProperty('common_client_run_name') ? project.findProperty('common_client_run_name') : 'vanilla_client') {
-                workingDirectory(this.file("run"))
-            }
-        }
-    }
 }
 
 dependencies {
@@ -26,14 +15,28 @@ dependencies {
 }
 
 processResources {
+    var expandProps = [
+        'version'                      : version,
+        'group'                        : project.group,
+        'minecraft_version'            : minecraft_version,
+        'minecraft_version_range'      : minecraft_version_range,
+        'fabric_loader_version'        : fabric_loader_version,
+        'mod_name'                     : mod_name,
+        'mod_author'                   : mod_author,
+        'mod_id'                       : mod_id,
+        'license'                      : license,
+        'description'                  : project.description,
+        'forge_version'                : forge_version,
+        'forge_loader_version_range'   : forge_loader_version_range,
+        'credits'                      : credits,
+        'java_version'                 : java_version
+    ]
 
-    def buildProps = project.properties.clone()
-
-    filesMatching(['pack.mcmeta']) {
-
-        expand buildProps
+    filesMatching(['pack.mcmeta', '*.mixins.json']) {
+        expand expandProps
     }
 }
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
