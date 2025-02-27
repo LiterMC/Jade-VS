@@ -2,9 +2,9 @@ subprojects {
     
     apply plugin: 'java'
     
-    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+    java.toolchain.languageVersion = JavaLanguageVersion.of(java_version)
     java.withSourcesJar()
-    java.withJavadocJar()
+    // java.withJavadocJar()
         
     jar {
         from(rootProject.file("LICENSE")) {
@@ -45,10 +45,37 @@ subprojects {
             name = 'BlameJared Maven (CrT / Bookshelf)'
             url = 'https://maven.blamejared.com'
         }
+
+        maven {
+            name = 'Kotlin for Forge'
+            url = 'https://thedarkcolour.github.io/KotlinForForge/'
+            content {
+                includeGroup('thedarkcolour')
+            }
+        }
+
+        maven {
+            name = 'Valkyrien Skies'
+            url = 'https://maven.valkyrienskies.org'
+            // content {
+            //     includeGroup('org.valkyrienskies')
+            //     includeGroup('org.valkyrienskies.core')
+            //     includeGroup('com.github.Rubydesic')
+            //     includeGroup('me.shedaniel.cloth')
+            //     includeGroup('org.mapstruct')
+            // }
+        }
+
+        maven {
+            name = 'Modrinth'
+            url = 'https://api.modrinth.com/maven'
+            content {
+                includeGroup('maven.modrinth')
+            }
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
-    
         it.options.encoding = 'UTF-8'
         it.options.release = 17
     }
@@ -57,7 +84,6 @@ subprojects {
     // metadata includes mapped dependencies which are not reasonably consumable by
     // other mod developers.
     tasks.withType(GenerateModuleMetadata) {
-
         enabled = false
     }
 }

@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        mavenCentral()
         gradlePluginPortal()
         maven {
             name = 'Forge'
@@ -17,4 +18,4 @@ pluginManagement {
 }
 
 rootProject.name = 'MultiLoader'
-include("Common", "Fabric", "Forge")
+include("common", "fabric", "forge")

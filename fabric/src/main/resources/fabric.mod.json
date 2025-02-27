@@ -1,0 +1,34 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${version}",
+    "name": "${mod_name}",
+    "description": "${description}",
+    "authors": [
+        "${mod_author}"
+    ],
+    "contact": {
+        "homepage": "https://github.com/LiterMC/Jade-VS",
+        "sources": "https://github.com/LiterMC/Jade-VS",
+        "issues": "https://github.com/LiterMC/Jade-VS/issues"
+    },
+    "license": "${license}",
+    "icon": "assets/modid/${mod_id}.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.github.litermc.jadevs.JadeVSMod"
+        ]
+    },
+    "mixins": [
+        "${mod_id}.fabric.mixins.json"
+    ],
+    "depends": {
+        "fabric": "*",
+        "minecraft": "${minecraft_version}",
+        "java": ">=17",
+        "jade": "*",
+        "valkyrienskies": "*"
+    }
+}
+  

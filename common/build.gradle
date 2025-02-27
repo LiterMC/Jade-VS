@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT'
+    id 'maven-publish'
+}
+
+archivesBaseName = "${mod_name}-common-${minecraft_version}"
+
+minecraft {
+    version(minecraft_version)
+}
+
+dependencies {
+     compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
+     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+}
+
+processResources {
+    var expandProps = [
+        'version'                      : version,
+        'group'                        : project.group,
+        'minecraft_version'            : minecraft_version,
+        'minecraft_version_range'      : minecraft_version_range,
+        'fabric_loader_version'        : fabric_loader_version,
+        'mod_name'                     : mod_name,
+        'mod_author'                   : mod_author,
+        'mod_id'                       : mod_id,
+        'license'                      : license,
+        'description'                  : project.description,
+        'forge_version'                : forge_version,
+        'forge_loader_version_range'   : forge_loader_version_range,
+        'credits'                      : credits,
+        'java_version'                 : java_version
+    ]
+
+    filesMatching(['pack.mcmeta', '*.mixins.json']) {
+        expand expandProps
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url "file://" + System.getenv("local_maven")
+        }
+    }
+}

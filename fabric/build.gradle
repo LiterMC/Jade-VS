@@ -1,0 +1,105 @@
+plugins {
+    id 'fabric-loom' version '1.10-SNAPSHOT'
+    id 'maven-publish'
+    id 'idea'
+    id 'com.modrinth.minotaur' version '2.+'
+}
+
+version = version
+group = group
+
+base {
+    archivesName = "${mod_name}-fabric-${minecraft_version}"
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    implementation project(":common")
+
+    modImplementation "org.valkyrienskies.core:api:${vs_core_version}"
+    modImplementation "org.valkyrienskies:valkyrienskies-119-fabric:${vs2_version}"
+    modImplementation "maven.modrinth:jade:${jade_fabric_version}"
+}
+
+loom {
+    runs {
+        client {
+            client()
+            setConfigName("Fabric Client")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+        server {
+            server()
+            setConfigName("Fabric Server")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+    }
+}
+
+
+processResources {
+    from project(":common").sourceSets.main.resources
+    inputs.property "version", project.version
+
+    var expandProps = [
+        'version'                      : version,
+        'group'                        : project.group,
+        'minecraft_version'            : minecraft_version,
+        'minecraft_version_range'      : minecraft_version_range,
+        'fabric_loader_version'        : fabric_loader_version,
+        'mod_name'                     : mod_name,
+        'mod_author'                   : mod_author,
+        'mod_id'                       : mod_id,
+        'license'                      : license,
+        'description'                  : project.description,
+        'forge_version'                : forge_version,
+        'forge_loader_version_range'   : forge_loader_version_range,
+        'credits'                      : credits,
+        'java_version'                 : java_version
+    ]
+
+    filesMatching(['fabric.mod.json', '*.mixins.json']) {
+        expand expandProps
+    }
+}
+
+tasks.withType(JavaCompile) {
+    source(project(":common").sourceSets.main.allSource)
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url "file://" + System.getenv("local_maven")
+        }
+    }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "jade-vs"
+    versionNumber = "${minecraft_version}-fabric-${version}"
+    versionType = "release"
+    uploadFile = jar
+    gameVersions = ["1.19.2"]
+    loaders = ["fabric"]
+    dependencies {
+        required.project "jade"
+        required.project "valkyrien-skies"
+    }
+}
