@@ -1,6 +1,5 @@
 package com.github.litermc.jadevs.mixin;
 
-import org.valkyrienskies.core.api.ships.Ship;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.server.level.ServerLevel;
