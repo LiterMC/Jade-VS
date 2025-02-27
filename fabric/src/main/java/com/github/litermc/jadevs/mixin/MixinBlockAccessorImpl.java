@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public class MixinBlockAccessorImpl {
 	@Inject(
 		method = "lambda$handleRequest$0",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Vec3i;distSqr(Lnet/minecraft/core/Vec3i;)D"),
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;distSqr(Lnet/minecraft/core/Vec3i;)D"),
 		locals = LocalCapture.CAPTURE_FAILHARD,
 		cancellable = true
 	)
@@ -36,9 +36,9 @@ public class MixinBlockAccessorImpl {
 
 	@Redirect(
 		method = "lambda$handleRequest$0",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Vec3i;distSqr(Lnet/minecraft/core/Vec3i;)D")
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;distSqr(Lnet/minecraft/core/Vec3i;)D")
 	)
-	private static double handleRequest$BlockPos$distSqr(Vec3i blockPos, Vec3i playerPos) {
+	private static double handleRequest$BlockPos$distSqr(BlockPos blockPos, Vec3i playerPos) {
 		return 0;
 	}
 }
