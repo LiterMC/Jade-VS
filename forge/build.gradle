@@ -1,6 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev.legacyforge'
+    id 'com.modrinth.minotaur' version '2.+'
 }
 
 mixin {
@@ -59,4 +60,18 @@ jar {
     manifest.attributes([
             "MixinConfigs": "${mod_id}.mixins.json"
     ])
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "jade-vs"
+    versionNumber = "${minecraft_version}-forge-${version}"
+    versionType = "release"
+    uploadFile = jar
+    gameVersions = ["1.20.1", "1.20.2"]
+    loaders = ["forge", "neoforge"]
+    dependencies {
+        required.project "jade"
+        required.project "valkyrien-skies"
+    }
 }
