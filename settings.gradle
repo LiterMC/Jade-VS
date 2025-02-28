@@ -17,5 +17,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'MultiLoader'
+rootProject.name = 'Jade-VS'
 include("common", "fabric", "forge")
