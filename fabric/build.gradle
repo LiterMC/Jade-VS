@@ -1,56 +1,57 @@
 plugins {
-    id 'multiloader-loader'
-    id 'fabric-loom'
-    id 'com.modrinth.minotaur' version '2.+'
+	id 'multiloader-loader'
+	id 'fabric-loom'
+	id 'com.modrinth.minotaur' version '2.+'
 }
-dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
-    }
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":common")
 
-    modImplementation "org.valkyrienskies.core:api:${vs_core_version}"
-    modImplementation "org.valkyrienskies:valkyrienskies-120-fabric:${vs2_version}"
-    modImplementation "maven.modrinth:jade:${jade_version}+fabric"
+dependencies {
+	minecraft "com.mojang:minecraft:${minecraft_version}"
+	mappings loom.layered {
+		officialMojangMappings()
+		parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
+	}
+	modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+	implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+	implementation project(":common")
+
+	modImplementation "org.valkyrienskies.core:api:${vs_core_version}"
+	modImplementation "org.valkyrienskies:valkyrienskies-120-fabric:${vs2_version}"
+	modImplementation "maven.modrinth:jade:${jade_version}+fabric"
 }
 
 loom {
-    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
-        accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
-    }
-    mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
-    }
-    runs {
-        client {
-            client()
-            setConfigName("Fabric Client")
-            ideConfigGenerated(true)
-            runDir("run")
-        }
-        server {
-            server()
-            setConfigName("Fabric Server")
-            ideConfigGenerated(true)
-            runDir("run")
-        }
-    }
+	if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
+		accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
+	}
+	mixin {
+		defaultRefmapName.set("${mod_id}.refmap.json")
+	}
+	runs {
+		client {
+			client()
+			setConfigName("Fabric Client")
+			ideConfigGenerated(true)
+			runDir("run")
+		}
+		server {
+			server()
+			setConfigName("Fabric Server")
+			ideConfigGenerated(true)
+			runDir("run")
+		}
+	}
 }
 
 modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = "jade-vs"
-    versionNumber = "${minecraft_version}-fabric-${version}"
-    versionType = "release"
-    uploadFile = remapJar
-    gameVersions = ["1.20.1", "1.20.2"]
-    loaders = ["fabric"]
-    dependencies {
-        required.project "jade"
-        required.project "valkyrien-skies"
-    }
+	token = System.getenv("MODRINTH_TOKEN")
+	projectId = "jade-vs"
+	versionNumber = "${minecraft_version}-fabric-${version}"
+	versionType = "release"
+	uploadFile = remapJar
+	gameVersions = ["1.20.1", "1.20.2"]
+	loaders = ["fabric"]
+	dependencies {
+		required.project "jade"
+		required.project "valkyrien-skies"
+	}
 }

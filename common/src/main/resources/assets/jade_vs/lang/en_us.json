@@ -1,0 +1,7 @@
+{
+	"config.jade.plugin_jade_vs.block_mass": "Block Mass",
+	"config.jade.plugin_jade_vs.ship_mass": "Ship Mass",
+	"jade.modName.jadeaddons.jade_vs": "Jade VS",
+	"jade_vs.tooltip.ship_mass": "Ship Mass",
+	"jade_vs.tooltip.standard_mass": "Standard Mass"
+}
