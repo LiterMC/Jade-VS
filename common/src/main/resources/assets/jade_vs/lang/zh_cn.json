@@ -1,0 +1,7 @@
+{
+	"config.jade.plugin_jade_vs.block_mass": "方块质量",
+	"config.jade.plugin_jade_vs.ship_mass": "物理结构质量",
+	"jade.modName.jadeaddons.jade_vs": "Jade VS",
+	"jade_vs.tooltip.ship_mass": "物理结构质量",
+	"jade_vs.tooltip.standard_mass": "标准质量"
+}
