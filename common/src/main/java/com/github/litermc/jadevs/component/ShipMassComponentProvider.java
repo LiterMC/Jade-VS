@@ -1,6 +1,7 @@
 package com.github.litermc.jadevs.component;
 
 import com.github.litermc.jadevs.JadeVSPlugin;
+import com.github.litermc.jadevs.util.UnitFormatter;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -28,7 +29,7 @@ public final class ShipMassComponentProvider extends ShipDetailsComponentProvide
 	@Override
 	public void appendServerDataOnShip(final CompoundTag data, final BlockAccessor accessor, final LoadedServerShip ship) {
 		final Vector3dc scaling = ship.getTransform().getShipToWorldScaling();
-		data.putDouble("shipMass", ship.getInertiaData().getMass() * scaling.x() * scaling.y() * scaling.z());
+		data.putLong("shipMass", (long) (ship.getInertiaData().getMass() * 1000 * scaling.x() * scaling.y() * scaling.z()));
 	}
 
 	@Override
@@ -37,8 +38,8 @@ public final class ShipMassComponentProvider extends ShipDetailsComponentProvide
 		if (!compound.contains("shipMass")) {
 			return;
 		}
-		final double mass = compound.getDouble("shipMass");
+		final long mass = compound.getLong("shipMass");
 		tooltip.add(Component.translatable("jade_vs.tooltip.ship_mass").append(": "));
-		tooltip.append(IThemeHelper.get().info(Component.literal(String.valueOf(mass)).append("kg")));
+		tooltip.append(IThemeHelper.get().info(UnitFormatter.formatWeight(mass)));
 	}
 }

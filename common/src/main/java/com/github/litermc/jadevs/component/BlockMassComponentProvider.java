@@ -1,6 +1,7 @@
 package com.github.litermc.jadevs.component;
 
 import com.github.litermc.jadevs.JadeVSPlugin;
+import com.github.litermc.jadevs.util.UnitFormatter;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -43,7 +44,7 @@ public final class BlockMassComponentProvider implements IBlockComponentProvider
 		if (mass == null) {
 			return;
 		}
-		data.putDouble("mass", mass);
+		data.putDouble("mass", (long) (mass * 1000));
 	}
 
 	@Override
@@ -52,8 +53,8 @@ public final class BlockMassComponentProvider implements IBlockComponentProvider
 		if (!compound.contains("mass")) {
 			return;
 		}
-		final double mass = compound.getDouble("mass");
+		final long mass = compound.getLong("shipMass");
 		tooltip.add(Component.translatable("jade_vs.tooltip.standard_mass").append(": "));
-		tooltip.append(IThemeHelper.get().info(Component.literal(String.valueOf(mass)).append("kg")));
+		tooltip.append(IThemeHelper.get().info(UnitFormatter.formatWeight(mass)));
 	}
 }
