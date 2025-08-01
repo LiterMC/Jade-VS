@@ -20,6 +20,6 @@ public final class UnitFormatter {
 			n /= 1000;
 			unit = TON;
 		}
-		return Component.literal(String.format("%.2d", n / 1000.0)).append(unit);
+		return Component.literal(String.format("%.2f", n / 1000.0)).append(unit);
 	}
 } 

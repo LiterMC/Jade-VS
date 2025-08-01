@@ -53,7 +53,7 @@ public final class BlockMassComponentProvider implements IBlockComponentProvider
 		if (!compound.contains("mass")) {
 			return;
 		}
-		final long mass = compound.getLong("shipMass");
+		final long mass = compound.getLong("mass");
 		tooltip.add(Component.translatable("jade_vs.tooltip.standard_mass").append(": "));
 		tooltip.append(IThemeHelper.get().info(UnitFormatter.formatWeight(mass)));
 	}
