@@ -63,7 +63,7 @@ jobs:
         id: artifact
         uses: actions/upload-artifact@v4
         with:
-          name: vschunkloader-release-assets
+          name: release-assets
           path: mod-output/*.jar
           overwrite: true
           if-no-files-found: error
@@ -79,7 +79,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: vschunkloader-release-assets
+          name: release-assets
           path: ./release-assets
       - name: Upload Release Assets
         uses: zyxkad/upload-release-asset-dir@v2

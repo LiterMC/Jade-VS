@@ -107,7 +107,7 @@ jobs:
         id: artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ format('VSChunkLoader Artifacts PR {0}', github.event.number) }}
+          name: ${{ format('JadeVS Artifacts PR {0}', github.event.number) }}
           path: mod-output/*.jar
           overwrite: true
           if-no-files-found: error
