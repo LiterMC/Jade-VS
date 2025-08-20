@@ -13,11 +13,14 @@
         "issues": "https://github.com/LiterMC/Jade-VS/issues"
     },
     "license": "${license}",
-    "icon": "assets/modid/${mod_id}.png",
+    "icon": "${mod_id}.png",
     "environment": "*",
     "entrypoints": {
         "main": [
             "com.github.litermc.jadevs.JadeVSMod"
+        ],
+        "jade": [
+            "com.github.litermc.jadevs.JadeVSPlugin"
         ]
     },
     "mixins": [

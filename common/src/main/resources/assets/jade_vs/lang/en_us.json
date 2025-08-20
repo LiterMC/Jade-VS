@@ -5,6 +5,8 @@
 	"jade_vs.tooltip.ship_mass": "Ship Mass",
 	"jade_vs.tooltip.standard_mass": "Standard Mass",
 	"jade_vs.unit.gram": "g",
-	"jade_vs.unit.kg": "kg",
-	"jade_vs.unit.ton": "t"
+	"jade_vs.unit.kilogram": "kg",
+	"jade_vs.unit.megagram": "t",
+	"jade_vs.unit.gigagram": "kt",
+	"jade_vs.unit.teragram": "Mt"
 }

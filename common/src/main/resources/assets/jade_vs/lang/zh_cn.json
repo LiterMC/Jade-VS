@@ -5,6 +5,8 @@
 	"jade_vs.tooltip.ship_mass": "物理结构质量",
 	"jade_vs.tooltip.standard_mass": "标准质量",
 	"jade_vs.unit.gram": "g",
-	"jade_vs.unit.kg": "kg",
-	"jade_vs.unit.ton": "t"
+	"jade_vs.unit.kilogram": "kg",
+	"jade_vs.unit.megagram": "t",
+	"jade_vs.unit.gigagram": "kt",
+	"jade_vs.unit.teragram": "Mt"
 }
