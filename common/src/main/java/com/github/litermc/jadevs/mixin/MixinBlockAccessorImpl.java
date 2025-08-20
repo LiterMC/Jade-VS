@@ -61,7 +61,7 @@ public class MixinBlockAccessorImpl {
 
 	@Redirect(
 		method = "lambda$handleRequest$0",
-		at = @At(value = "INVOKE", target = "Lsnownee/jade/api/BlockAccessor;getBlockEntity()Lnet/minecraft/world/level/block/entity/BlockEntity;", remap = false),
+		at = @At(value = "INVOKE", target = "Lsnownee/jade/api/BlockAccessor;getBlockEntity()Lnet/minecraft/world/level/block/entity/BlockEntity;", remap = true),
 		remap = false
 	)
 	private static BlockEntity handleRequest$BlockAccessor$getBlockEntity(final BlockAccessor accessor) {
@@ -74,7 +74,7 @@ public class MixinBlockAccessorImpl {
 
 	@Redirect(
 		method = "lambda$handleRequest$0",
-		at = @At(value = "INVOKE", target = "Lsnownee/jade/util/CommonProxy;getId(Lnet/minecraft/world/level/block/entity/BlockEntityType;)Lnet/minecraft/resources/ResourceLocation;", remap = false),
+		at = @At(value = "INVOKE", target = "Lsnownee/jade/util/CommonProxy;getId(Lnet/minecraft/world/level/block/entity/BlockEntityType;)Lnet/minecraft/resources/ResourceLocation;", remap = true),
 		remap = false
 	)
 	private static ResourceLocation handleRequest$CommonProxy$getId(final BlockEntityType<?> beType) {
