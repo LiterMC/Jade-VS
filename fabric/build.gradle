@@ -14,9 +14,11 @@ dependencies {
 	implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 	implementation project(":common")
 
+	compileOnly "org.joml:joml-primitives:1.10.0"
 	modImplementation "org.valkyrienskies.core:api:${vs_core_version}"
 	modImplementation "org.valkyrienskies:valkyrienskies-120-fabric:${vs2_version}"
 	modImplementation "maven.modrinth:jade:${jade_version}+fabric"
+	modImplementation "maven.modrinth:jade-addons-fabric:${jade_addons_fabric_version}+fabric"
 }
 
 loom {

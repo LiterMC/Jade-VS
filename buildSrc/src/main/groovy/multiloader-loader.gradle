@@ -31,6 +31,22 @@ processResources {
     from(configurations.commonResources)
 }
 
+// tasks.named('build') {
+//     finalizedBy('outputRemapJar')
+// }
+
+// tasks.register('outputRemapJar') {
+//     dependsOn tasks.named('remapJar')
+//     doLast {
+//         def jarFile = tasks.named('remapJar').get().archiveFile.get().asFile
+//         def targetDir = file("${rootDir}/mod-output/")
+//         copy {
+//             from jarFile
+//             into targetDir
+//         }
+//     }
+// }
+
 tasks.named('javadoc', Javadoc).configure {
     dependsOn(configurations.commonJava)
     source(configurations.commonJava)

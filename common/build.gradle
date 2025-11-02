@@ -17,12 +17,22 @@ legacyForge {
 dependencies {
 	compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 	implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+	compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
 
 	api "org.jetbrains.kotlin:kotlin-reflect:1.9.10"
 	api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10"
-	modCompileOnly "org.valkyrienskies.core:api:${vs_core_version}"
+	compileOnly "org.joml:joml-primitives:1.10.0"
+	implementation "org.valkyrienskies.core:api:${vs_core_version}"
+	implementation "org.valkyrienskies.core:impl:${vs_core_version}"
+	implementation "org.valkyrienskies.core:util:${vs_core_version}"
 	modCompileOnly "org.valkyrienskies:valkyrienskies-120-forge:${vs2_version}"
 	modCompileOnly "maven.modrinth:jade:${jade_version}+forge"
+	modCompileOnly "maven.modrinth:jade-addons-forge:${jade_addons_version}+forge"
+
+	modCompileOnly("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
+	modCompileOnly "com.tterrag.registrate:Registrate:${registrate_version}"
+	modCompileOnly "net.createmod.ponder:Ponder-Forge-${minecraft_version}:${ponder_version}"
+	modCompileOnly "dev.engine-room.flywheel:flywheel-forge-api-${minecraft_version}:${flywheel_version}"
 }
 
 configurations {

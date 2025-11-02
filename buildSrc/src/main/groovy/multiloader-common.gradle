@@ -67,6 +67,58 @@ repositories {
     }
 
     maven {
+        name = 'Create 6'
+        url = 'https://maven.createmod.net/'
+        content {
+            includeGroup('com.simibubi.create')
+            includeGroup('dev.engine-room.flywheel')
+            includeGroup('net.createmod.ponder')
+        }
+    }
+
+    maven {
+        name = 'Create 6 Registerate'
+        url = 'https://maven.ithundxr.dev/mirror'
+        content {
+            includeGroup('com.tterrag.registrate')
+        }
+    }
+
+    maven {
+        name = 'Create 6 Fabric'
+        url = 'https://mvn.devos.one/snapshots/'
+        content {
+            includeGroup('com.simibubi.create')
+            includeGroup('com.tterrag.registrate_fabric')
+            includeGroup('io.github.tropheusj')
+        }
+    }
+
+    maven {
+        name = 'Create 6 Fabric - Porting Lib'
+        url = 'https://mvn.devos.one/releases/'
+        content {
+            includeGroup('io.github.fabricators_of_create.Porting-Lib')
+        }
+    }
+
+    maven {
+        name = 'Forge Config API Port'
+        url = 'https://raw.githubusercontent.com/Fuzss/modresources/main/maven'
+        content {
+            includeGroup('fuzs.forgeconfigapiport')
+        }
+    }
+
+    maven {
+        name = 'Reach Entity Attributes'
+        url = 'https://maven.jamieswhiteshirt.com/libs-release'
+        content {
+            includeGroup('com.jamieswhiteshirt')
+        }
+    }
+
+    maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
         content {
