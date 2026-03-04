@@ -69,10 +69,25 @@ dependencies {
 }
 
 jar {
-	finalizedBy('reobfJar')
 	manifest.attributes([
 			"MixinConfigs": "${mod_id}.mixins.json, ${mod_id}.forge.mixins.json"
 	])
+}
+
+tasks.named('build') {
+	finalizedBy('outputRemapJar')
+}
+
+tasks.register('outputRemapJar') {
+	dependsOn tasks.named('reobfJar')
+	doLast {
+		def jarFile = tasks.named('reobfJar').get().archiveFile.get().asFile
+		def targetDir = file("${rootDir}/mod-output/")
+		copy {
+			from jarFile
+			into targetDir
+		}
+	}
 }
 
 modrinth {

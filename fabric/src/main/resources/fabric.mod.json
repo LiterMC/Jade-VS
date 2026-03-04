@@ -30,7 +30,7 @@
         "fabric": "*",
         "minecraft": "${minecraft_version}",
         "jade": "*",
-        "valkyrienskies": "*"
+        "valkyrienskies": ">=2.4"
     }
 }
   

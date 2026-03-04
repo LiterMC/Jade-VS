@@ -1,12 +1,32 @@
 {
 	"config.jade.plugin_jade_vs.block_mass": "方块质量",
+	"config.jade.plugin_jade_vs.block_velocity": "方块速度",
+	"config.jade.plugin_jade_vs.block_velocity.display_mode": "显示模式",
+	"config.jade.plugin_jade_vs.block_velocity.display_mode_combined": "组合式",
+	"config.jade.plugin_jade_vs.block_velocity.display_mode_separate": "分离轴",
+	"config.jade.plugin_jade_vs.block_velocity.display_mode_total": "仅速率",
+	"config.jade.plugin_jade_vs.ship_angular_velocity": "角速度",
+	"config.jade.plugin_jade_vs.ship_angular_velocity.degrees_mode": "角度模式",
+	"config.jade.plugin_jade_vs.ship_angular_velocity.display_mode": "显示模式",
+	"config.jade.plugin_jade_vs.block_velocity.display_mode_combined": "组合式",
+	"config.jade.plugin_jade_vs.block_velocity.display_mode_separate": "分离轴",
+	"config.jade.plugin_jade_vs.block_velocity.display_mode_total": "仅速率",
 	"config.jade.plugin_jade_vs.ship_mass": "物理结构质量",
 	"jade.modName.jadeaddons.jade_vs": "Jade VS",
+	"jade_vs.tooltip.angular_velocity": "角速度",
+	"jade_vs.tooltip.block_velocity": "方块速度",
 	"jade_vs.tooltip.ship_mass": "物理结构质量",
 	"jade_vs.tooltip.standard_mass": "标准质量",
+
 	"jade_vs.unit.gram": "g",
 	"jade_vs.unit.kilogram": "kg",
 	"jade_vs.unit.megagram": "t",
 	"jade_vs.unit.gigagram": "kt",
-	"jade_vs.unit.teragram": "Mt"
+	"jade_vs.unit.teragram": "Mt",
+
+	"jade_vs.unit.meter": "m",
+	"jade_vs.unit.kilometer": "km",
+	"jade_vs.unit.megameter": "Mm",
+
+	"jade_vs.unit.second": "s"
 }

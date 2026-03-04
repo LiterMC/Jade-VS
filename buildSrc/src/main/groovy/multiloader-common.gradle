@@ -1,213 +1,230 @@
 plugins {
-    id 'java-library'
-    id 'maven-publish'
+	id 'java-library'
+	id 'maven-publish'
 }
 
 base {
-    archivesName = "${mod_name}-${project.name}-${minecraft_version}"
+	archivesName = "${mod_name}-${project.name}-${minecraft_version}"
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
-    withSourcesJar()
-    // withJavadocJar()
+	toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+	withSourcesJar()
+	// withJavadocJar()
 }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 
-    // https://docs.gradle.org/current/userguide/declaring_repositories.html#declaring_content_exclusively_found_in_one_repository
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = 'Sponge'
-                url = 'https://repo.spongepowered.org/repository/maven-public'
-            }
-        }
-        filter { includeGroupAndSubgroups('org.spongepowered') }
-    }
+	// https://docs.gradle.org/current/userguide/declaring_repositories.html#declaring_content_exclusively_found_in_one_repository
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = 'Sponge'
+				url = 'https://repo.spongepowered.org/repository/maven-public'
+			}
+		}
+		filter { includeGroupAndSubgroups('org.spongepowered') }
+	}
 
-    exclusiveContent {
-        forRepositories(
-                maven {
-                    name = 'ParchmentMC'
-                    url = 'https://maven.parchmentmc.org/'
-                },
-                maven {
-                    name = "NeoForge"
-                    url = 'https://maven.neoforged.net/releases'
-                }
-        )
-        filter { includeGroup('org.parchmentmc.data') }
-    }
+	exclusiveContent {
+		forRepositories(
+			maven {
+				name = 'ParchmentMC'
+				url = 'https://maven.parchmentmc.org/'
+			},
+			maven {
+				name = 'NeoForge'
+				url = 'https://maven.neoforged.net/releases'
+			}
+		)
+		filter { includeGroup('org.parchmentmc.data') }
+	}
 
-    maven {
-        name = 'BlameJared'
-        url = 'https://maven.blamejared.com'
-    }
+	maven {
+		name = 'NeoForge'
+		url = 'https://maven.neoforged.net/releases'
+		content {
+			includeGroup('net.minecraftforge')
+			includeGroup('net.neoforged')
+		}
+	}
 
-    maven {
-        name = 'Kotlin for Forge'
-        url = 'https://thedarkcolour.github.io/KotlinForForge/'
-        content {
-            includeGroup('thedarkcolour')
-        }
-    }
+	maven {
+		name = 'MinecraftForge'
+		url = 'https://maven.minecraftforge.net/'
+		content {
+			includeGroup('net.minecraftforge')
+		}
+	}
 
-    maven {
-        name = 'Valkyrien Skies'
-        url = 'https://maven.valkyrienskies.org'
-        content {
-            includeGroup('org.valkyrienskies')
-            includeGroup('org.valkyrienskies.core')
-            includeGroup('com.github.Rubydesic')
-            includeGroup('me.shedaniel.cloth')
-            includeGroup('org.mapstruct')
-        }
-    }
+	maven {
+		name = 'BlameJared'
+		url = 'https://maven.blamejared.com'
+	}
 
-    maven {
-        name = 'Create 6'
-        url = 'https://maven.createmod.net/'
-        content {
-            includeGroup('com.simibubi.create')
-            includeGroup('dev.engine-room.flywheel')
-            includeGroup('net.createmod.ponder')
-        }
-    }
+	maven {
+		name = 'Kotlin for Forge'
+		url = 'https://thedarkcolour.github.io/KotlinForForge/'
+		content {
+			includeGroup('thedarkcolour')
+		}
+	}
 
-    maven {
-        name = 'Create 6 Registerate'
-        url = 'https://maven.ithundxr.dev/mirror'
-        content {
-            includeGroup('com.tterrag.registrate')
-        }
-    }
+	maven {
+		name = 'Create 6'
+		url = 'https://maven.createmod.net/'
+		content {
+			includeGroup('com.simibubi.create')
+			includeGroup('dev.engine-room.flywheel')
+			includeGroup('net.createmod.ponder')
+		}
+	}
 
-    maven {
-        name = 'Create 6 Fabric'
-        url = 'https://mvn.devos.one/snapshots/'
-        content {
-            includeGroup('com.simibubi.create')
-            includeGroup('com.tterrag.registrate_fabric')
-            includeGroup('io.github.tropheusj')
-        }
-    }
+	maven {
+		name = 'Create 6 Registerate'
+		url = 'https://maven.ithundxr.dev/mirror'
+		content {
+			includeGroup('com.tterrag.registrate')
+		}
+	}
 
-    maven {
-        name = 'Create 6 Fabric - Porting Lib'
-        url = 'https://mvn.devos.one/releases/'
-        content {
-            includeGroup('io.github.fabricators_of_create.Porting-Lib')
-        }
-    }
+	maven {
+		name = 'Create 6 Fabric'
+		url = 'https://mvn.devos.one/snapshots/'
+		content {
+			includeGroup('com.simibubi.create')
+			includeGroup('com.tterrag.registrate_fabric')
+			includeGroup('io.github.tropheusj')
+		}
+	}
 
-    maven {
-        name = 'Forge Config API Port'
-        url = 'https://raw.githubusercontent.com/Fuzss/modresources/main/maven'
-        content {
-            includeGroup('fuzs.forgeconfigapiport')
-        }
-    }
+	maven {
+		name = 'Create 6 Fabric - Porting Lib'
+		url = 'https://mvn.devos.one/releases/'
+		content {
+			includeGroup('io.github.fabricators_of_create.Porting-Lib')
+		}
+	}
 
-    maven {
-        name = 'Reach Entity Attributes'
-        url = 'https://maven.jamieswhiteshirt.com/libs-release'
-        content {
-            includeGroup('com.jamieswhiteshirt')
-        }
-    }
+	maven {
+		name = 'Forge Config API Port'
+		url = 'https://raw.githubusercontent.com/Fuzss/modresources/main/maven'
+		content {
+			includeGroup('fuzs.forgeconfigapiport')
+		}
+	}
 
-    maven {
-        name = 'Modrinth'
-        url = 'https://api.modrinth.com/maven'
-        content {
-            includeGroup('maven.modrinth')
-        }
-    }
+	maven {
+		name = 'Reach Entity Attributes'
+		url = 'https://maven.jamieswhiteshirt.com/libs-release'
+		content {
+			includeGroup('com.jamieswhiteshirt')
+		}
+	}
+
+	maven {
+		name = 'Modrinth'
+		url = 'https://api.modrinth.com/maven'
+		content {
+			includeGroup('maven.modrinth')
+		}
+	}
+
+	maven {
+		name = 'Valkyrien Skies'
+		url = 'https://maven.valkyrienskies.org'
+		// content {
+		//     includeGroup('org.valkyrienskies')
+		//     includeGroup('org.valkyrienskies.core')
+		//     includeGroup('com.github.Rubydesic')
+		//     includeGroup('me.shedaniel.cloth')
+		//     includeGroup('org.mapstruct')
+		// }
+	}
 }
 
 // Declare capabilities on the outgoing configurations.
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 ['apiElements', 'runtimeElements', 'sourcesElements'].each { variant ->
-    configurations."$variant".outgoing {
-        capability("$group:${project.name}:$version")
-        capability("$group:${base.archivesName.get()}:$version")
-        capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
-        capability("$group:$mod_id:$version")
-    }
-    publishing.publications.configureEach {
-        suppressPomMetadataWarningsFor(variant)
-    }
+	configurations."$variant".outgoing {
+		capability("$group:${project.name}:$version")
+		capability("$group:${base.archivesName.get()}:$version")
+		capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
+		capability("$group:$mod_id:$version")
+	}
+	publishing.publications.configureEach {
+		suppressPomMetadataWarningsFor(variant)
+	}
 }
 
 sourcesJar {
-    from(rootProject.file('LICENSE')) {
-        rename { "${it}_${mod_name}" }
-    }
+	from(rootProject.file('LICENSE')) {
+		rename { "${it}_${mod_name}" }
+	}
 }
 
 jar {
-    from(rootProject.file('LICENSE')) {
-        rename { "${it}_${mod_name}" }
-    }
+	from(rootProject.file('LICENSE')) {
+		rename { "${it}_${mod_name}" }
+	}
 
-    manifest {
-        attributes([
-                'Specification-Title'   : mod_name,
-                'Specification-Vendor'  : mod_author,
-                'Specification-Version' : project.jar.archiveVersion,
-                'Implementation-Title'  : project.name,
-                'Implementation-Version': project.jar.archiveVersion,
-                'Implementation-Vendor' : mod_author,
-                'Built-On-Minecraft'    : minecraft_version
-        ])
-    }
+	manifest {
+		attributes([
+				'Specification-Title'   : mod_name,
+				'Specification-Vendor'  : mod_author,
+				'Specification-Version' : project.jar.archiveVersion,
+				'Implementation-Title'  : project.name,
+				'Implementation-Version': project.jar.archiveVersion,
+				'Implementation-Vendor' : mod_author,
+				'Built-On-Minecraft'    : minecraft_version
+		])
+	}
 }
 
 processResources {
-    var expandProps = [
-            'version'                      : version,
-            'group'                        : project.group, // Else we target the task's group.
-            'minecraft_version'            : minecraft_version,
-            'minecraft_version_range'      : minecraft_version_range,
-            'fabric_loader_version'        : fabric_loader_version,
-            'mod_name'                     : mod_name,
-            'mod_author'                   : mod_author,
-            'mod_id'                       : mod_id,
-            'license'                      : license,
-            'description'                  : project.description,
-            'forge_version'                : forge_version,
-            'forge_loader_version_range'   : forge_loader_version_range,
-            'credits'                      : credits,
-            'java_version'                 : java_version
-    ]
+	var expandProps = [
+			'version'                      : version,
+			'group'                        : project.group, // Else we target the task's group.
+			'minecraft_version'            : minecraft_version,
+			'minecraft_version_range'      : minecraft_version_range,
+			'fabric_loader_version'        : fabric_loader_version,
+			'mod_name'                     : mod_name,
+			'mod_author'                   : mod_author,
+			'mod_id'                       : mod_id,
+			'license'                      : license,
+			'description'                  : project.description,
+			'forge_version'                : forge_version,
+			'forge_loader_version_range'   : forge_loader_version_range,
+			'credits'                      : credits,
+			'java_version'                 : java_version
+	]
 
-    var jsonExpandProps = expandProps.collectEntries {
-        key, value -> [(key): value instanceof String ? value.replace("\n", "\\\\n") : value]
-    }
+	var jsonExpandProps = expandProps.collectEntries {
+		key, value -> [(key): value instanceof String ? value.replace("\n", "\\\\n") : value]
+	}
 
-    filesMatching(['META-INF/mods.toml']) {
-        expand expandProps
-    }
+	filesMatching(['META-INF/mods.toml']) {
+		expand expandProps
+	}
 
-    filesMatching(['pack.mcmeta', 'fabric.mod.json', '*.mixins.json']) {
-        expand jsonExpandProps
-    }
+	filesMatching(['pack.mcmeta', 'fabric.mod.json', '*.mixins.json']) {
+		expand jsonExpandProps
+	}
 
-    inputs.properties(expandProps)
+	inputs.properties(expandProps)
 }
 
 publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifactId base.archivesName.get()
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url System.getenv('local_maven_url')
-        }
-    }
+	publications {
+		register('mavenJava', MavenPublication) {
+			artifactId base.archivesName.get()
+			from components.java
+		}
+	}
+	repositories {
+		maven {
+			url System.getenv('local_maven_url')
+		}
+	}
 }

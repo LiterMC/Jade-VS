@@ -44,6 +44,22 @@ loom {
 	}
 }
 
+tasks.named('build') {
+	finalizedBy('outputRemapJar')
+}
+
+tasks.register('outputRemapJar') {
+	dependsOn tasks.named('remapJar')
+	doLast {
+		def jarFile = tasks.named('remapJar').get().archiveFile.get().asFile
+		def targetDir = file("${rootDir}/mod-output/")
+		copy {
+			from jarFile
+			into targetDir
+		}
+	}
+}
+
 modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
 	projectId = "jade-vs"
