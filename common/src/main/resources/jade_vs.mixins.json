@@ -1,20 +1,19 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "com.github.litermc.jadevs.mixin",
-    "refmap": "${mod_id}.refmap.json",
-    "compatibilityLevel": "JAVA_17",
-    "mixins": [
-        "MixinBlockAccessorImpl",
-        "MixinRayTracing"
-    ],
-    "client": [
-        "MixinBlockAccessorClientHandler"
-    ],
-    "server": [
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    }
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.github.litermc.jadevs.mixin",
+	"refmap": "${mod_id}.refmap.json",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"MixinBlockAccessorImpl",
+		"MixinRayTracing"
+	],
+	"client": [
+		"MixinBlockAccessorClientHandler"
+	],
+	"server": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }
-
