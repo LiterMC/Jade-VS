@@ -8,3 +8,4 @@ Provides compatibility between Jade and Valkyrien Skies.
 Server side required.
 
 No need to configure anything, you only need download suitable version to your mods folder and enjoy ;)
+a
