@@ -1,11 +1,11 @@
 package com.github.litermc.jadevs.forge.mixin;
 
+import com.github.litermc.jadevs.api.IShipData;
+import com.github.litermc.jadevs.util.ShipWorldHelper;
+
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
 import org.joml.Vector3d;
-import org.valkyrienskies.core.api.ships.Ship;
-import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 
@@ -31,10 +31,9 @@ public class MixinCreatePlugin {
 	)
 	private static Vec3 registerClient$toLocalVector(final AbstractContraptionEntity contraption, Vec3 pos, final float partialTicks, final Operation<Vec3> operation) {
 		final Level level = contraption.level();
-		final Ship ship = VSGameUtilsKt.getShipManagingPos(level, contraption.blockPosition());
+		final IShipData ship = ShipWorldHelper.getShipAtPos(level, contraption.blockPosition());
 		if (ship != null) {
-			pos = VSGameUtilsKt.toWorldCoordinates(level, pos);
-			final Vector3d p = ship.getWorldToShip().transformPosition(new Vector3d(pos.x, pos.y, pos.z));
+			final Vector3d p = ship.getShipToWorldTransform().transformPosition(new Vector3d(pos.x, pos.y, pos.z));
 			pos = new Vec3(p.x, p.y, p.z);
 		}
 		return operation.call(contraption, pos, partialTicks);

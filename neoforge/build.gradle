@@ -1,0 +1,96 @@
+plugins {
+	id 'multiloader-loader'
+	id 'net.neoforged.moddev'
+	id 'com.modrinth.minotaur' version '2.+'
+}
+
+neoForge {
+	version = neoforge_version
+	// Automatically enable neoforge AccessTransformers if the file exists
+	def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+	if (at.exists()) {
+		accessTransformers.from(at.absolutePath)
+	}
+	parchment {
+		minecraftVersion = parchment_minecraft
+		mappingsVersion = parchment_version
+	}
+	runs {
+		configureEach {
+			systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
+			ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
+		}
+		client {
+			client()
+		}
+		data {
+			data()
+
+			// DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
+			// Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+			programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+
+		}
+		server {
+			server()
+		}
+	}
+	mods {
+		"${mod_id}" {
+			sourceSet sourceSets.main
+		}
+	}
+}
+
+dependencies {
+	implementation annotationProcessor("com.google.auto.service:auto-service:1.1.1")
+
+	implementation "maven.modrinth:jade:${jade_version}+neoforge"
+	implementation "maven.modrinth:jade-addons-forge:${jade_addons_version}+neoforge"
+
+	implementation "org.valkyrienskies.core:api:${vs_core_version}"
+	// implementation "org.valkyrienskies:valkyrienskies-121-neoforge:${vs2_version}"
+
+	api "dev.ryanhcode.sable:sable-common-${minecraft_version}:${sable_version}"
+
+	implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
+	implementation "com.tterrag.registrate:Registrate:${registrate_version}"
+	compileOnly "dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}"
+	implementation "net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}"
+	runtimeOnly "dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}"
+}
+
+sourceSets.main.resources {
+	srcDir 'src/generated/resources'
+}
+
+tasks.named('build') {
+	finalizedBy('outputRemapJar')
+}
+
+tasks.register('outputRemapJar') {
+	dependsOn tasks.named('jar')
+	doLast {
+		def jarFile = tasks.named('jar').get().archiveFile.get().asFile
+		def targetDir = file("${rootDir}/mod-output/")
+		copy {
+			from jarFile
+			into targetDir
+		}
+	}
+}
+
+modrinth {
+	token = System.getenv("MODRINTH_TOKEN")
+	projectId = "jade-vs"
+	versionNumber = "${minecraft_version}-neoforge-${version}"
+	versionType = "release"
+	uploadFile = jar
+	gameVersions = [minecraft_version]
+	loaders = ["neoforge"]
+	dependencies {
+		required.project "jade"
+		optional.project "valkyrien-skies"
+		optional.project "sable"
+	}
+}

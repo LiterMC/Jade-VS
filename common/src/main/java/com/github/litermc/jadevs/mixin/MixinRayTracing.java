@@ -1,15 +1,16 @@
 package com.github.litermc.jadevs.mixin;
 
+import com.github.litermc.jadevs.api.IShipData;
+import com.github.litermc.jadevs.util.ShipWorldHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-
+import org.joml.Matrix4d;
+import org.joml.Matrix4dc;
 import org.joml.Vector3d;
-import org.valkyrienskies.core.api.ships.Ship;
-import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 import snownee.jade.overlay.RayTracing;
 
@@ -19,8 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 @Mixin(RayTracing.class)
@@ -48,8 +47,8 @@ public class MixinRayTracing {
 		final Predicate<Entity> filter,
 		final CallbackInfoReturnable<EntityHitResult> cir
 	) {
-		start = VSGameUtilsKt.toWorldCoordinates(level, start);
-		end = VSGameUtilsKt.toWorldCoordinates(level, end);
+		start = ShipWorldHelper.toWorldPos(level, start);
+		end = ShipWorldHelper.toWorldPos(level, end);
 		final AABB checkBox = new AABB(start, end);
 		double distance = Double.MAX_VALUE;
 		Entity result = null;
@@ -62,11 +61,12 @@ public class MixinRayTracing {
 			if (targetBox.getSize() < 0.3) {
 				targetBox = targetBox.inflate(0.3);
 			}
-			final Ship ship = VSGameUtilsKt.getShipManagingPos(level, target.blockPosition());
+			final IShipData ship = ShipWorldHelper.getShipAtPos(level, target.blockPosition());
 			if (ship != null) {
-				ship.getWorldToShip().transformPosition(tmp.set(start.x, start.y, start.z));
+				final Matrix4dc worldToShip = ship.getShipToWorldTransform().invert(new Matrix4d());
+				worldToShip.transformPosition(tmp.set(start.x, start.y, start.z));
 				start1 = new Vec3(tmp.x, tmp.y, tmp.z);
-				ship.getWorldToShip().transformPosition(tmp.set(end.x, end.y, end.z));
+				worldToShip.transformPosition(tmp.set(end.x, end.y, end.z));
 				end1 = new Vec3(tmp.x, tmp.y, tmp.z);
 			} else {
 				start1 = start;
@@ -87,7 +87,7 @@ public class MixinRayTracing {
 			distance = dist;
 			result = target;
 			if (ship != null) {
-				ship.getShipToWorld().transformPosition(tmp.set(pos.x, pos.y, pos.z));
+				ship.getShipToWorldTransform().transformPosition(tmp.set(pos.x, pos.y, pos.z));
 				hitPos = new Vec3(tmp.x, tmp.y, tmp.z);
 			} else {
 				hitPos = pos;

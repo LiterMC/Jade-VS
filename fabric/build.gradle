@@ -11,12 +11,13 @@ dependencies {
 		parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
 	}
 	modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-	implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-	implementation project(":common")
+	implementation annotationProcessor("com.google.auto.service:auto-service:1.1.1")
 
-	compileOnly "org.joml:joml-primitives:1.10.0"
 	modImplementation "org.valkyrienskies.core:api:${vs_core_version}"
-	modImplementation "org.valkyrienskies:valkyrienskies-120-fabric:${vs2_version}"
+	// modImplementation "org.valkyrienskies:valkyrienskies-121-fabric:${vs2_version}"
+
+	modApi "dev.ryanhcode.sable:sable-fabric-${minecraft_version}:${sable_version}"
+
 	modImplementation "maven.modrinth:jade:${jade_version}+fabric"
 	modImplementation "maven.modrinth:jade-addons-fabric:${jade_addons_fabric_version}+fabric"
 }
@@ -66,10 +67,11 @@ modrinth {
 	versionNumber = "${minecraft_version}-fabric-${version}"
 	versionType = "release"
 	uploadFile = remapJar
-	gameVersions = ["1.20.1", "1.20.2"]
+	gameVersions = [minecraft_version]
 	loaders = ["fabric"]
 	dependencies {
 		required.project "jade"
-		required.project "valkyrien-skies"
+		optional.project "valkyrien-skies"
+		optional.project "sable"
 	}
 }

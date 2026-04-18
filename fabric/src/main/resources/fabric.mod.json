@@ -1,36 +1,38 @@
 {
-    "schemaVersion": 1,
-    "id": "${mod_id}",
-    "version": "${version}",
-    "name": "${mod_name}",
-    "description": "${description}",
-    "authors": [
-        "${mod_author}"
-    ],
-    "contact": {
-        "homepage": "https://github.com/LiterMC/Jade-VS",
-        "sources": "https://github.com/LiterMC/Jade-VS",
-        "issues": "https://github.com/LiterMC/Jade-VS/issues"
-    },
-    "license": "${license}",
-    "icon": "${mod_id}.png",
-    "environment": "*",
-    "entrypoints": {
-        "main": [
-            "com.github.litermc.jadevs.JadeVSMod"
-        ],
-        "jade": [
-            "com.github.litermc.jadevs.JadeVSPlugin"
-        ]
-    },
-    "mixins": [
-        "${mod_id}.mixins.json"
-    ],
-    "depends": {
-        "fabric": "*",
-        "minecraft": "${minecraft_version}",
-        "jade": "*",
-        "valkyrienskies": ">=2.4"
-    }
+	"schemaVersion": 1,
+	"id": "${mod_id}",
+	"version": "${version}",
+	"name": "${mod_name}",
+	"description": "${description}",
+	"authors": [
+		"${mod_author}"
+	],
+	"contact": {
+		"homepage": "https://github.com/LiterMC/Jade-VS",
+		"sources": "https://github.com/LiterMC/Jade-VS",
+		"issues": "https://github.com/LiterMC/Jade-VS/issues"
+	},
+	"license": "${license}",
+	"icon": "${mod_id}.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.github.litermc.jadevs.JadeVSMod"
+		],
+		"jade": [
+			"com.github.litermc.jadevs.JadeVSPlugin"
+		]
+	},
+	"mixins": [
+		"${mod_id}.mixins.json"
+	],
+	"depends": {
+		"fabric": "*",
+		"minecraft": "${minecraft_version}",
+		"jade": "*"
+	},
+	"recommends": {
+		"valkyrienskies": ">=2.4",
+		"sable": "*"
+	}
 }
-  

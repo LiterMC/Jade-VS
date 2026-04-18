@@ -1,6 +1,7 @@
 package com.github.litermc.jadevs.component;
 
 import com.github.litermc.jadevs.JadeVSPlugin;
+import com.github.litermc.jadevs.api.IShipData;
 import com.github.litermc.jadevs.util.SerializeUtil;
 import com.github.litermc.jadevs.util.UnitFormatter;
 
@@ -8,9 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-
 import org.joml.Vector3dc;
-import org.valkyrienskies.core.api.ships.LoadedServerShip;
 
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.ITooltip;
@@ -28,7 +27,7 @@ public final class ShipAngularVelocityComponentProvider extends ShipDetailsCompo
 	}
 
 	@Override
-	public void appendServerDataOnShip(final CompoundTag data, final BlockAccessor accessor, final LoadedServerShip ship) {
+	public void appendServerDataOnShip(final CompoundTag data, final BlockAccessor accessor, final IShipData ship) {
 		data.put("shipAngularVelocity", SerializeUtil.vector3dToList(ship.getAngularVelocity()));
 	}
 

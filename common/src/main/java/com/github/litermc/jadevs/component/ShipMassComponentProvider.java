@@ -1,14 +1,12 @@
 package com.github.litermc.jadevs.component;
 
 import com.github.litermc.jadevs.JadeVSPlugin;
+import com.github.litermc.jadevs.api.IShipData;
 import com.github.litermc.jadevs.util.UnitFormatter;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-
-import org.joml.Vector3dc;
-import org.valkyrienskies.core.api.ships.LoadedServerShip;
 
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.ITooltip;
@@ -26,9 +24,8 @@ public final class ShipMassComponentProvider extends ShipDetailsComponentProvide
 	}
 
 	@Override
-	public void appendServerDataOnShip(final CompoundTag data, final BlockAccessor accessor, final LoadedServerShip ship) {
-		final Vector3dc scaling = ship.getTransform().getShipToWorldScaling();
-		data.putLong("shipMass", (long) (ship.getInertiaData().getMass() * 1000 * scaling.x() * scaling.y() * scaling.z()));
+	public void appendServerDataOnShip(final CompoundTag data, final BlockAccessor accessor, final IShipData ship) {
+		data.putLong("shipMass", (long) (ship.getMass() * 1000));
 	}
 
 	@Override

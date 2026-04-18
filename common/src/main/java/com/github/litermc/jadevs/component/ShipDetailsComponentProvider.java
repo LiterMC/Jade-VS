@@ -1,10 +1,10 @@
 package com.github.litermc.jadevs.component;
 
+import com.github.litermc.jadevs.api.IShipData;
+import com.github.litermc.jadevs.util.ShipWorldHelper;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-
-import org.valkyrienskies.core.api.ships.LoadedServerShip;
-import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -18,12 +18,12 @@ public abstract class ShipDetailsComponentProvider implements IBlockComponentPro
 		if (!(accessor.getLevel() instanceof ServerLevel level)) {
 			return;
 		}
-		final LoadedServerShip ship = VSGameUtilsKt.getShipObjectManagingPos(level, accessor.getPosition());
+		final IShipData ship = ShipWorldHelper.getShipAtPos(level, accessor.getPosition());
 		if (ship == null) {
 			return;
 		}
 		this.appendServerDataOnShip(data, accessor, ship);
 	}
 
-	public abstract void appendServerDataOnShip(CompoundTag data, BlockAccessor accessor, LoadedServerShip ship);
+	public abstract void appendServerDataOnShip(CompoundTag data, BlockAccessor accessor, IShipData ship);
 }

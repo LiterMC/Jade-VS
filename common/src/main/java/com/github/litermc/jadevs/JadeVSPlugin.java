@@ -18,23 +18,23 @@ import snownee.jade.api.WailaPlugin;
 
 @WailaPlugin
 public class JadeVSPlugin implements IWailaPlugin {
-	public static final ResourceLocation BLOCK_MASS = new ResourceLocation(Constants.MOD_ID, "block_mass");
-	public static final ResourceLocation BLOCK_VELOCITY = new ResourceLocation(Constants.MOD_ID, "block_velocity");
-	public static final ResourceLocation BLOCK_VELOCITY_DISPLAY_MODE = new ResourceLocation(Constants.MOD_ID, "block_velocity.display_mode");
-	public static final ResourceLocation SHIP_ANGULAR_VELOCITY = new ResourceLocation(Constants.MOD_ID, "ship_angular_velocity");
-	public static final ResourceLocation SHIP_ANGULAR_VELOCITY_DEGREES_MODE = new ResourceLocation(Constants.MOD_ID, "ship_angular_velocity.degrees_mode");
-	public static final ResourceLocation SHIP_ANGULAR_VELOCITY_DISPLAY_MODE = new ResourceLocation(Constants.MOD_ID, "ship_angular_velocity.display_mode");
-	public static final ResourceLocation SHIP_MASS = new ResourceLocation(Constants.MOD_ID, "ship_mass");
-	public static final ResourceLocation SHIP_VELOCITY = new ResourceLocation(Constants.MOD_ID, "ship_velocity");
-	public static final ResourceLocation SHIP_VELOCITY_DISPLAY_MODE = new ResourceLocation(Constants.MOD_ID, "ship_velocity.display_mode");
+	public static final ResourceLocation BLOCK_MASS = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "block_mass");
+	public static final ResourceLocation BLOCK_VELOCITY = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "block_velocity");
+	public static final ResourceLocation BLOCK_VELOCITY_DISPLAY_MODE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "block_velocity.display_mode");
+	public static final ResourceLocation SHIP_ANGULAR_VELOCITY = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "ship_angular_velocity");
+	public static final ResourceLocation SHIP_ANGULAR_VELOCITY_DEGREES_MODE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "ship_angular_velocity.degrees_mode");
+	public static final ResourceLocation SHIP_ANGULAR_VELOCITY_DISPLAY_MODE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "ship_angular_velocity.display_mode");
+	public static final ResourceLocation SHIP_MASS = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "ship_mass");
+	public static final ResourceLocation SHIP_VELOCITY = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "ship_velocity");
+	public static final ResourceLocation SHIP_VELOCITY_DISPLAY_MODE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "ship_velocity.display_mode");
 
 	@Override
 	public void register(IWailaCommonRegistration registration) {
-		registration.registerBlockDataProvider(BlockMassComponentProvider.INSTANCE, BlockEntity.class);
-		registration.registerBlockDataProvider(BlockVelocityComponentProvider.INSTANCE, BlockEntity.class);
-		registration.registerBlockDataProvider(ShipAngularVelocityComponentProvider.INSTANCE, BlockEntity.class);
-		registration.registerBlockDataProvider(ShipMassComponentProvider.INSTANCE, BlockEntity.class);
-		registration.registerBlockDataProvider(ShipVelocityComponentProvider.INSTANCE, BlockEntity.class);
+		registration.registerBlockDataProvider(BlockMassComponentProvider.INSTANCE, Block.class);
+		registration.registerBlockDataProvider(BlockVelocityComponentProvider.INSTANCE, Block.class);
+		registration.registerBlockDataProvider(ShipAngularVelocityComponentProvider.INSTANCE, Block.class);
+		registration.registerBlockDataProvider(ShipMassComponentProvider.INSTANCE, Block.class);
+		registration.registerBlockDataProvider(ShipVelocityComponentProvider.INSTANCE, Block.class);
 	}
 
 	@Override
