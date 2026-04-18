@@ -4,6 +4,7 @@ import com.github.litermc.jadevs.component.BlockMassComponentProvider;
 import com.github.litermc.jadevs.component.BlockVelocityComponentProvider;
 import com.github.litermc.jadevs.component.ShipAngularVelocityComponentProvider;
 import com.github.litermc.jadevs.component.ShipMassComponentProvider;
+import com.github.litermc.jadevs.component.ShipVelocityComponentProvider;
 import com.github.litermc.jadevs.config.VelocityDisplayMode;
 
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +25,8 @@ public class JadeVSPlugin implements IWailaPlugin {
 	public static final ResourceLocation SHIP_ANGULAR_VELOCITY_DEGREES_MODE = new ResourceLocation(Constants.MOD_ID, "ship_angular_velocity.degrees_mode");
 	public static final ResourceLocation SHIP_ANGULAR_VELOCITY_DISPLAY_MODE = new ResourceLocation(Constants.MOD_ID, "ship_angular_velocity.display_mode");
 	public static final ResourceLocation SHIP_MASS = new ResourceLocation(Constants.MOD_ID, "ship_mass");
+	public static final ResourceLocation SHIP_VELOCITY = new ResourceLocation(Constants.MOD_ID, "ship_velocity");
+	public static final ResourceLocation SHIP_VELOCITY_DISPLAY_MODE = new ResourceLocation(Constants.MOD_ID, "ship_velocity.display_mode");
 
 	@Override
 	public void register(IWailaCommonRegistration registration) {
@@ -31,6 +34,7 @@ public class JadeVSPlugin implements IWailaPlugin {
 		registration.registerBlockDataProvider(BlockVelocityComponentProvider.INSTANCE, BlockEntity.class);
 		registration.registerBlockDataProvider(ShipAngularVelocityComponentProvider.INSTANCE, BlockEntity.class);
 		registration.registerBlockDataProvider(ShipMassComponentProvider.INSTANCE, BlockEntity.class);
+		registration.registerBlockDataProvider(ShipVelocityComponentProvider.INSTANCE, BlockEntity.class);
 	}
 
 	@Override
@@ -42,5 +46,7 @@ public class JadeVSPlugin implements IWailaPlugin {
 		registration.addConfig(SHIP_ANGULAR_VELOCITY_DEGREES_MODE, true);
 		registration.addConfig(SHIP_ANGULAR_VELOCITY_DISPLAY_MODE, VelocityDisplayMode.SPEED_ONLY);
 		registration.registerBlockComponent(ShipMassComponentProvider.INSTANCE, Block.class);
+		registration.registerBlockComponent(ShipVelocityComponentProvider.INSTANCE, Block.class);
+		registration.addConfig(SHIP_VELOCITY_DISPLAY_MODE, VelocityDisplayMode.SPEED_ONLY);
 	}
 }

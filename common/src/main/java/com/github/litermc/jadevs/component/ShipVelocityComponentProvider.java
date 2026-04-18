@@ -1,9 +1,11 @@
 package com.github.litermc.jadevs.component;
 
 import com.github.litermc.jadevs.JadeVSPlugin;
+import com.github.litermc.jadevs.util.SerializeUtil;
 import com.github.litermc.jadevs.util.UnitFormatter;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,30 +17,42 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
 
-public final class ShipMassComponentProvider extends ShipDetailsComponentProvider {
-	public static final ShipMassComponentProvider INSTANCE = new ShipMassComponentProvider();
+public final class ShipVelocityComponentProvider extends ShipDetailsComponentProvider {
+	public static final ShipVelocityComponentProvider INSTANCE = new ShipVelocityComponentProvider();
 
-	private ShipMassComponentProvider() {}
+	private ShipVelocityComponentProvider() {}
 
 	@Override
 	public ResourceLocation getUid() {
-		return JadeVSPlugin.SHIP_MASS;
+		return JadeVSPlugin.SHIP_VELOCITY;
+	}
+
+	@Override
+	public boolean enabledByDefault() {
+		return false;
 	}
 
 	@Override
 	public void appendServerDataOnShip(final CompoundTag data, final BlockAccessor accessor, final LoadedServerShip ship) {
-		final Vector3dc scaling = ship.getTransform().getShipToWorldScaling();
-		data.putLong("shipMass", (long) (ship.getInertiaData().getMass() * 1000 * scaling.x() * scaling.y() * scaling.z()));
+		data.put("shipVelocity", SerializeUtil.vector3dToList(ship.getVelocity()));
 	}
 
 	@Override
 	public void appendTooltip(final ITooltip tooltip, final BlockAccessor accessor, final IPluginConfig config) {
 		final CompoundTag compound = accessor.getServerData();
-		if (!compound.contains("shipMass")) {
+		if (!compound.contains("shipVelocity")) {
 			return;
 		}
-		final long mass = compound.getLong("shipMass");
-		tooltip.add(Component.translatable("jade_vs.tooltip.ship_mass").append(": "));
-		tooltip.append(IThemeHelper.get().info(UnitFormatter.formatWeight(mass)));
+		final Vector3dc velocity = SerializeUtil.listToVector3d(compound.getList("shipVelocity", Tag.TAG_DOUBLE));
+		tooltip.add(Component.translatable("jade_vs.tooltip.ship_velocity").append(": "));
+		tooltip.append(
+			IThemeHelper.get()
+				.info(
+					UnitFormatter.formatVelocity(
+						velocity,
+						config.getEnum(JadeVSPlugin.SHIP_VELOCITY_DISPLAY_MODE)
+					)
+				)
+		);
 	}
 }

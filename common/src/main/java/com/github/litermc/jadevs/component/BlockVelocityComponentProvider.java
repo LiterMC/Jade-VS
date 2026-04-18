@@ -18,7 +18,6 @@ import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
-import snownee.jade.api.ui.IElementHelper;
 
 public final class BlockVelocityComponentProvider extends ShipDetailsComponentProvider {
 	public static final BlockVelocityComponentProvider INSTANCE = new BlockVelocityComponentProvider();
@@ -33,10 +32,6 @@ public final class BlockVelocityComponentProvider extends ShipDetailsComponentPr
 	@Override
 	public void appendServerDataOnShip(final CompoundTag data, final BlockAccessor accessor, final LoadedServerShip ship) {
 		final BlockPos pos = accessor.getPosition();
-
-		final Vector3dc velocity = ship.getVelocity();
-		data.put("shipVelocity", SerializeUtil.vector3dToList(velocity));
-
 		final Vector3dc blockRelativePos = ship.getTransform().getToWorld()
 			.transformPosition(new Vector3d(pos.getX(), pos.getY(), pos.getZ()).add(0.5, 0.5, 0.5))
 			.sub(ship.getTransform().getPositionInWorld());

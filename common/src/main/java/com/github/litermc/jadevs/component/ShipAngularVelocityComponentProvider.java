@@ -16,7 +16,6 @@ import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
-import snownee.jade.api.ui.IElementHelper;
 
 public final class ShipAngularVelocityComponentProvider extends ShipDetailsComponentProvider {
 	public static final ShipAngularVelocityComponentProvider INSTANCE = new ShipAngularVelocityComponentProvider();
